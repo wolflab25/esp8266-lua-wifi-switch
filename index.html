@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Wifi relay </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="switch.css">
+  <link rel="icon" type="image/ico" href="favicon.ico">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="light" class="">
+   <div id="mask_container">
+    <div class="mask" data-side="left"></div>
+    <div class="mask" data-side="right"></div>
+  </div>
+</div>
+<div id="wall_socket">
+  <div id="switch_container">
+      <div class="switch" id="left_switch">
+      </div>
+      <div class="switch" id="right_switch">
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+
+function loadJSON(json_url, callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', json_url, true);
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);
+}
+
+ function onoff(channel, state) {
+  url = 'onoff?channel='+channel+"&state="+state;
+  loadJSON(url, function(response) {
+  });
+} 
+
+$(document).ready(function(){
+    url = 'getstate';
+    $switch_left=$('div#left_switch');
+    $switch_right=$('div#right_switch');
+  loadJSON(url, function(response) {
+    if (response=="1,1"){
+      $('div#light').addClass('none');
+      $switch_left.addClass('off');
+      $switch_right.addClass('off');
+    }
+    if (response=="0,1"){
+      $('div#light').addClass('right');
+      $switch_right.addClass('off');
+    }
+    if (response=="1,0"){
+      $('div#light').addClass('left');
+      $switch_left.addClass('off');
+    }
+  });
+// your code
+});
+
+// Rebound of MVBen's beautifull dribble (http://dribbble.com/shots/881352-Switch)
+
+
+function checkSwitch() {
+  $switch_left=$('div#left_switch');
+  $switch_right=$('div#right_switch');
+  
+  if ($switch_left.hasClass('off') && !$switch_right.hasClass('off')) {
+    $('div#light').removeClass();
+    $('div#light').addClass('left');
+    url = 'onoff?action=right';
+    loadJSON(url, function(response) {});
+
+  } else
+  if (!$switch_left.hasClass('off') && $switch_right.hasClass('off')) {
+    $('div#light').removeClass();
+    $('div#light').addClass('right');
+    url = 'onoff?action=left';
+    loadJSON(url, function(response) {});
+
+  } else
+  if ($switch_left.hasClass('off') && $switch_right.hasClass('off')) {
+    $('div#light').removeClass();
+    $('div#light').addClass('none');
+    url = 'onoff?action=on';
+    loadJSON(url, function(response) {});
+  } else 
+  if (!$switch_left.hasClass('off') && !$switch_right.hasClass('off')) {
+    $('div#light').removeClass();
+    url = 'onoff?action=off';
+    loadJSON(url, function(response) {});
+  }
+}
+
+
+
+$('#switch_container').on('click','div.switch',function(){
+  $(this).toggleClass('off');
+   checkSwitch();
+});
+$('#mask_container').on('click','div.mask',function(){
+  $side=$(this).attr('data-side');
+  $('div.switch#'+$side+'_switch').toggleClass('off');
+  checkSwitch();
+});
+
+</script>
+</body>
+</html>
+
