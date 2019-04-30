@@ -165,14 +165,21 @@ if auth_OK then
     if url_file == 'getstate' then
       sck:on("sent", function() sck:close() end)
       local response = ''
-      response=gpio.read(4)
-      response=response..','..gpio.read(5)
+      response=gpio.read(ch1)
+      response=response..','..gpio.read(ch2)
       sck:send(response)
       print ('getstate')
       request_OK = true
     end
 
-
+    if url_file == 'getinverse' then
+      sck:on("sent", function() sck:close() end)
+      local response = ''
+      response=cfg['inverse']
+      sck:send(response)
+      print ('getstate')
+      request_OK = true
+    end
       end
 
       end

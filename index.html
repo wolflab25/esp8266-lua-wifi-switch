@@ -48,6 +48,8 @@ $(document).ready(function(){
     $switch_left=$('div#left_switch');
     $switch_right=$('div#right_switch');
   loadJSON(url, function(response) {
+  loadJSON('getinverse', function(response2) {
+    if (response2=="1"){
     if (response=="1,1"){
       $('div#light').addClass('none');
       $switch_left.addClass('off');
@@ -61,7 +63,27 @@ $(document).ready(function(){
       $('div#light').addClass('left');
       $switch_left.addClass('off');
     }
+  }else{
+     if (response=="0,0"){
+      $('div#light').addClass('none');
+      $switch_left.addClass('off');
+      $switch_right.addClass('off');
+    }
+    if (response=="1,0"){
+      $('div#light').addClass('right');
+      $switch_right.addClass('off');
+    }
+    if (response=="0,1"){
+      $('div#light').addClass('left');
+      $switch_left.addClass('off');
+    }
+
+
+
+  }
   });
+  });
+
 // your code
 });
 

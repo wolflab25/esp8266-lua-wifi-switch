@@ -53,6 +53,16 @@
 				<select id="use_auth"><option value="0">Disable</option><option value="1">Enable</option></select>
 				<div class="b_clear"></div>
 			</div>
+			<div class="b_title">Device settings</div>
+			<div class="b_content">
+				<label>Restore on power lost:</label>
+				<select id="savestate"><option value="0">Disable</option><option value="1">Enable</option></select>
+				<label>Inverse signal level:</label>
+				<select id="inverse"><option value="0">Disable</option><option value="1">Enable</option></select>
+				<label>Channel 1 pin:</label><input id="channel1" type="text" value="">
+				<label>Channel 2 pin:</label><input id="channel2" type="text" value="">
+				<div class="b_clear"></div>
+			</div>
 
 			<div class="b_clear"></div>
 			<button class="submit-btn" onclick="submit_cfg()">Save configuration</button>

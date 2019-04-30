@@ -1,4 +1,4 @@
-params=['wifi_ssid','wifi_pwd','ap_ssid','ap_pwd','ip_address','use_static','net_mask','default_gateway','dns_1','login','password','use_auth'];
+params=['wifi_ssid','wifi_pwd','ap_ssid','ap_pwd','ip_address','use_static','net_mask','default_gateway','dns_1','login','password','use_auth','savestate','inverse','channel1','channel2'];
 
 function loadJSON(json_url, callback) {
 
