@@ -2,4 +2,4 @@
 esp8266 lua wifi switch
 
 switch controlled via web interface
-design of switch for here https://www.bypeople.com/css-javascript-double-light-switch/
+design of switch https://www.bypeople.com/css-javascript-double-light-switch/
